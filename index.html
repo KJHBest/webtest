@@ -29,16 +29,45 @@
             padding: 20px;
         }
         .flat-button {
-            background-color: #800020; /* 버건디색 */
+            background-color: #800020; 
             color: white;
             border: none;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            border-radius: 5px;
+            font-size: 24px;
+            border-radius: 30px;
+            width:95%;
             cursor: pointer;
+        }
+        main {
+            padding: 1em;
+        }
+        section {
+            margin-bottom: 2em;
+            
+        }
+        .styles, .backgrounds, .gender {
+            display: flex;
+            gap: 1em;
+            
+        }
+        .styles div, .backgrounds div, .gender div {
+            border: 1px solid #800020;
+            padding: 1em;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            border-radius: 30px;
+        }
+        .styles div:hover, .backgrounds div:hover, .gender div:hover{
+            background-color: #ff7272;
+        }
+        .selected {
+            color: white;
+            border-color: #212121;
+            background-color: #800020;
         }
     </style>
 </head>
@@ -46,7 +75,7 @@
     <div class="title-bar cursive">
         Fit it
     </div>
-    <div class="content">
+    <div class="content" id="lending_content">
         <!-- Content goes here -->
          <center>
             <img src="static/introduce.jpg" width="90%" >
@@ -56,9 +85,103 @@
             <button class="flat-button">준비중...</button>
              <br><br>
              <a href="https://www.buymeacoffee.com/kjhbest" target="_blank">
-    <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
-</a>
+                <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
+            </a>
         </center>
     </div>
+    <div class="content" id="gender_select">
+        <main>
+            <section id="sel_gender">
+                <h2>Choose Your Gender</h2>
+                <div class="gender">
+                    <div class="selected">Female</div>
+                    <div>Male</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="content" id="condition_select">
+        <main>
+            <section id="clothing-style">
+                <h2>Choose Your Style</h2>
+                <div class="styles">
+                    <div class="selected">Oversized Blazer and Crop Top Combo</div>
+                    <div>Pleated Skirt and Sneakers</div>
+                    <div>Wide Pants and Graphic T-Shirts</div>
+                </div>
+            </section>
+            <section id="background">
+                <h2>Choose Your Background</h2>
+                <div class="backgrounds">
+                    <div class="selected">High place mountain, korea seoul</div>
+                    <div>Emerald beach, jeju island</div>
+                    <div>Night marketplace, korea seoul</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="content" id="upload">
+        <input type="file" id="fileInput" />
+        <br><br>
+        <button class="flat-button" id="uploadButton">업로드</button>
+    </div>
+    
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const genderOptions = document.querySelectorAll('.gender div');
+            const styleOptions = document.querySelectorAll('.styles div');
+            const backgroundOptions = document.querySelectorAll('.backgrounds div');
+
+            genderOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    genderOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
+            styleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    styleOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
+            backgroundOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    backgroundOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+        });
+        // 파일 업로드
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('파일을 선택해주세요.');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            fetch('업로드_서버_URL', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('성공:', data);
+                alert('파일 업로드 성공!');
+            })
+            .catch((error) => {
+                console.error('오류:', error);
+                alert('파일 업로드 실패.');
+            });
+        });
+    </script>
 </body>
 </html>
