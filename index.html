@@ -105,85 +105,126 @@
             background-color: #c9c9c9;
             border-radius: 10px;
         }
+         /* 로딩 스크린 스타일 */
+         #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 로딩 스피너 스타일 */
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <div class="title-bar cursive">
-        Fit it
+    <div id="loading">
+        <div class="spinner"></div>
     </div>
-    <!-- <div class="content" id="lending_content">
-       
-         <center>
-            <img src="static/introduce.jpg" width="90%" >
-             <br><br>
-             이제 최고의 순간을 만드세요! 
-             <br><br>
-            <button class="flat-button">준비중...</button>
-             <br><br>
-             <a href="https://www.buymeacoffee.com/kjhbest" target="_blank">
-                <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
-            </a>
-        </center>
-    </div> -->
-    <div class="content" id="gender_select">
-        <main>
-            <section id="sel_gender">
-                <h2>Choose Your Gender</h2>
-                <div class="gender">
-                    <div id="gender_0" class="selected">Female</div>
-                    <div id="gender_1">Male</div>
-                </div>
-            </section>
-        </main>
-    </div>
-    <div class="content" id="condition_select">
-        <main>
-            <section id="clothing-style">
-                <h2>Choose Your Style</h2>
-                <div class="styles">
-                    <div id="style_0" class="selected"><img src="static/dress/female/Oversized Blazer and Crop Top Combo.png" alt="Female Image" />Oversized Blazer and Crop Top Combo</div>
-                    <div id="style_1"><img src="static/dress/female/Pleated Skirt and Sneakers.png" alt="Female Image" />Pleated Skirt and Sneakers</div>
-                    <div id="style_2"><img src="static/dress/female/WhiteBlouseDenimShorts.png" alt="Female Image" />White Blouse + Denim Shorts</div>
-                    <div id="style_3"><img src="static/dress/female/Floral Print Dress + Sandals.png" alt="Female Image" />Floral Print Dress + Sandals</div>
-                    <div id="style_4"><img src="static/dress/female/Graphic T-Shirt + Mini Skirt.png" alt="Female Image" />Graphic T-Shirt + Mini Skirt</div>
-                    <div id="style_5"><img src="static/dress/female/Slip Dress + Denim Jacket.png" alt="Female Image" />Slip Dress + Denim Jacket</div>
-                    <div id="style_6"><img src="static/dress/female/Sleeveless Knit Top + Wide-Leg Pants.png" alt="Female Image" />Sleeveless Knit Top + Wide-Leg Pants</div>
-                    <div id="style_7"><img src="static/dress/female/Blouse + High-Waisted Shorts.png" alt="Female Image" />Blouse + High-Waisted Shorts</div>
+    <div id="content" style="display:none;">
+        <div class="title-bar cursive">
+            Fit it
+        </div>
+        <!-- <div class="content" id="lending_content">
+        
+            <center>
+                <img src="static/introduce.jpg" width="90%" >
+                <br><br>
+                이제 최고의 순간을 만드세요! 
+                <br><br>
+                <button class="flat-button">준비중...</button>
+                <br><br>
+                <a href="https://www.buymeacoffee.com/kjhbest" target="_blank">
+                    <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
+                </a>
+            </center>
+        </div> -->
+        <div class="content" id="gender_select">
+            <main>
+                <section id="sel_gender">
+                    <h2>Choose Your Gender</h2>
+                    <div class="gender">
+                        <div id="gender_0" class="selected">Female</div>
+                        <div id="gender_1">Male</div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div class="content" id="condition_select">
+            <main>
+                <section id="clothing-style">
+                    <h2>Choose Your Style</h2>
+                    <div class="styles">
+                        <div id="style_0" class="selected"><img src="static/dress/female/Oversized Blazer and Crop Top Combo.png" alt="Female Image" />Oversized Blazer and Crop Top Combo</div>
+                        <div id="style_1"><img src="static/dress/female/Pleated Skirt and Sneakers.png" alt="Female Image" />Pleated Skirt and Sneakers</div>
+                        <div id="style_2"><img src="static/dress/female/WhiteBlouseDenimShorts.png" alt="Female Image" />White Blouse + Denim Shorts</div>
+                        <div id="style_3"><img src="static/dress/female/Floral Print Dress + Sandals.png" alt="Female Image" />Floral Print Dress + Sandals</div>
+                        <div id="style_4"><img src="static/dress/female/Graphic T-Shirt + Mini Skirt.png" alt="Female Image" />Graphic T-Shirt + Mini Skirt</div>
+                        <div id="style_5"><img src="static/dress/female/Slip Dress + Denim Jacket.png" alt="Female Image" />Slip Dress + Denim Jacket</div>
+                        <div id="style_6"><img src="static/dress/female/Sleeveless Knit Top + Wide-Leg Pants.png" alt="Female Image" />Sleeveless Knit Top + Wide-Leg Pants</div>
+                        <div id="style_7"><img src="static/dress/female/Blouse + High-Waisted Shorts.png" alt="Female Image" />Blouse + High-Waisted Shorts</div>
 
-                    <div id="style_8"><img src="static/dress/male/Linen Shirt + Chino Shorts.png" alt="Male Image" />Linen Shirt + Chino Shorts</div>
-                    <div id="style_9"><img src="static/dress/male/Polo Shirt + Slim-Fit Chino Pants.png" alt="Male Image" />Polo Shirt + Slim-Fit Chino Pants</div>
-                    <div id="style_10"><img src="static/dress/male/Short-Sleeve Button-Down Shirt + Denim Shorts.png" alt="Male Image" />Short-Sleeve Button-Down Shirt + Denim Shorts</div>
-                    <div id="style_11"><img src="static/dress/male/White T-Shirt + Denim Shorts.png" alt="Male Image" />White T-Shirt + Denim Shorts</div>
-                </div>
-            </section>
-            <section id="background">
-                <h2>Choose Your Background</h2>
-                <div class="backgrounds">
-                    <div id="bg_0" class="selected"><img src="static/bg/Luxurious mansion staircase.png" alt="Background Image" />Luxurious mansion staircase</div>
-                    <div id="bg_1"><img src="static/bg/Modern urban rooftop.png" alt="Background Image" />Modern urban rooftop</div>
-                    <div id="bg_2"><img src="static/bg/Tropical jungle.png" alt="Background Image" />Tropical jungle</div>
-                    <div id="bg_3"><img src="static/bg/Industrial warehouse.png" alt="Background Image" />Industrial warehouse</div>
-                    <div id="bg_4"><img src="static/bg/Minimalist white studio.png" alt="Background Image" />Minimalist white studio</div>
-                    <div id="bg_5"><img src="static/bg/Beachside resort.png" alt="Background Image" />Beachside resort</div>
-                    <div id="bg_6"><img src="static/bg/Classic European street.png" alt="Background Image" />Classic European street</div>
-                    <div id="bg_7"><img src="static/bg/Picturesque vineyard.png" alt="Background Image" />Picturesque vineyard</div>
-                    <div id="bg_8"><img src="static/bg/Autumn forest.png" alt="Background Image" />Autumn forest</div>
-                    <div id="bg_9"><img src="static/bg/Chic modern living room.png" alt="Background Image" />Chic modern living room</div>
-                    <div id="bg_10"><img src="static/bg/Serene Japanese garden.png" alt="Background Image" />Serene Japanese garden</div>
-                </div>
-            </section>
-        </main>
-    </div>
-    <div class="content" id="upload">
-        <input style="display: none;" type="file" id="fileInput" />
-        <br><br>
-        <button class="flat-button" id="uploadButton">Upload</button>
-        <div id="imagesContainer"></div>
-    </div>
+                        <div id="style_8"><img src="static/dress/male/Linen Shirt + Chino Shorts.png" alt="Male Image" />Linen Shirt + Chino Shorts</div>
+                        <div id="style_9"><img src="static/dress/male/Polo Shirt + Slim-Fit Chino Pants.png" alt="Male Image" />Polo Shirt + Slim-Fit Chino Pants</div>
+                        <div id="style_10"><img src="static/dress/male/Short-Sleeve Button-Down Shirt + Denim Shorts.png" alt="Male Image" />Short-Sleeve Button-Down Shirt + Denim Shorts</div>
+                        <div id="style_11"><img src="static/dress/male/White T-Shirt + Denim Shorts.png" alt="Male Image" />White T-Shirt + Denim Shorts</div>
+                    </div>
+                </section>
+                <section id="background">
+                    <h2>Choose Your Background</h2>
+                    <div class="backgrounds">
+                        <div id="bg_0" class="selected"><img src="static/bg/Luxurious mansion staircase.png" alt="Background Image" />Luxurious mansion staircase</div>
+                        <div id="bg_1"><img src="static/bg/Modern urban rooftop.png" alt="Background Image" />Modern urban rooftop</div>
+                        <div id="bg_2"><img src="static/bg/Tropical jungle.png" alt="Background Image" />Tropical jungle</div>
+                        <div id="bg_3"><img src="static/bg/Industrial warehouse.png" alt="Background Image" />Industrial warehouse</div>
+                        <div id="bg_4"><img src="static/bg/Minimalist white studio.png" alt="Background Image" />Minimalist white studio</div>
+                        <div id="bg_5"><img src="static/bg/Beachside resort.png" alt="Background Image" />Beachside resort</div>
+                        <div id="bg_6"><img src="static/bg/Classic European street.png" alt="Background Image" />Classic European street</div>
+                        <div id="bg_7"><img src="static/bg/Picturesque vineyard.png" alt="Background Image" />Picturesque vineyard</div>
+                        <div id="bg_8"><img src="static/bg/Autumn forest.png" alt="Background Image" />Autumn forest</div>
+                        <div id="bg_9"><img src="static/bg/Chic modern living room.png" alt="Background Image" />Chic modern living room</div>
+                        <div id="bg_10"><img src="static/bg/Serene Japanese garden.png" alt="Background Image" />Serene Japanese garden</div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <div class="content" id="upload">
+            <input style="display: none;" type="file" id="fileInput" />
+            <br><br>
+            <button class="flat-button" id="uploadButton">Upload</button>
+            <div id="imagesContainer"></div>
+        </div>
     
-
+    </div>
 
     <script>
+        // 페이지가 완전히 로드되면 로딩 스크린을 숨기고 콘텐츠를 보여줍니다.
+        window.addEventListener('load', function() {
+            var loadingScreen = document.getElementById('loading');
+            var content = document.getElementById('content');
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        });
         document.addEventListener('DOMContentLoaded', () => {
             const genderOptions = document.querySelectorAll('.gender div');
             const styleOptions = document.querySelectorAll('.styles div');
@@ -232,7 +273,12 @@
                     alert('파일을 선택해주세요.');
                     return;
                 }
-                
+                // 로딩 바 보이기
+                var loadingScreen = document.getElementById('loading');
+                var content = document.getElementById('content');
+                loadingScreen.style.display = 'flex';
+                content.style.display = 'flex';
+
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('datas', JSON.stringify(selDatas));
@@ -245,9 +291,17 @@
                 .then(data => {
                     console.log('성공:', data);
                     displayImages(data.images);
+                    var loadingScreen = document.getElementById('loading');
+                    var content = document.getElementById('content');
+                    loadingScreen.style.display = 'none';
+                    content.style.display = 'block';
                 })
                 .catch((error) => {
                     console.error('오류:', error);
+                    var loadingScreen = document.getElementById('loading');
+                    var content = document.getElementById('content');
+                    loadingScreen.style.display = 'none';
+                    content.style.display = 'block';
                 });
             }
         });
