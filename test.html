@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit It</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        main {
+            padding: 1em;
+        }
+        section {
+            margin-bottom: 2em;
+        }
+        h2 {
+            margin-bottom: 0.5em;
+        }
+        .styles, .backgrounds {
+            display: flex;
+            gap: 1em;
+        }
+        .styles div, .backgrounds div {
+            border: 1px solid #ddd;
+            padding: 1em;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        .styles div:hover, .backgrounds div:hover {
+            background-color: #f0f0f0;
+        }
+        .selected {
+            border-color: #4CAF50;
+            background-color: #e0ffe0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fit It</h1>
+    </header>
+    <main>
+        <section id="clothing-style">
+            <h2>Choose Your Style</h2>
+            <div class="styles">
+                <div>Style 1</div>
+                <div>Style 2</div>
+                <div>Style 3</div>
+            </div>
+        </section>
+        <section id="background">
+            <h2>Choose Your Background</h2>
+            <div class="backgrounds">
+                <div>Background 1</div>
+                <div>Background 2</div>
+                <div>Background 3</div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const styleOptions = document.querySelectorAll('.styles div');
+            const backgroundOptions = document.querySelectorAll('.backgrounds div');
+
+            styleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    styleOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
+            backgroundOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    backgroundOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

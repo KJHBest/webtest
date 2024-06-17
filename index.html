@@ -17,13 +17,14 @@
             font-family: Arial, sans-serif;
         }
         .title-bar {
-            background-color: #800020;
+            /* background-color: #800020; */
             /* color: #D3D3D3; */
-            color:white;
-            text-align: left;
+            color:#800020;
+            text-align: center;
             padding: 15px 15px;
             font-size: 24px;
             font-weight: bold;
+            border-bottom:1px solid #b7b7b7; ;
         }
         .content {
             padding: 20px;
@@ -48,26 +49,61 @@
             margin-bottom: 2em;
             
         }
-        .styles, .backgrounds, .gender {
+         .gender {
             display: flex;
             gap: 1em;
-            
+            background-color: #ebebeb;
+            border-radius: 50px;
         }
-        .styles div, .backgrounds div, .gender div {
-            border: 1px solid #800020;
+
+        .styles, .backgrounds {
+            display: flex;
+            gap: 1em;
+            flex-wrap: wrap;
+          
+        }
+        .styles div, .backgrounds div{
+            flex: 1 1 calc(50% - 10px); /* Two items per row with some space between */
+            box-sizing: border-box;
+            padding: 10px;
+            /* border: 1px solid #ccc;  */
+            text-align: center;
+        }
+        .gender div {
+            /* border: 1px solid #800020; */
+            
             padding: 1em;
             cursor: pointer;
             flex: 1;
             text-align: center;
-            border-radius: 30px;
+            border-radius: 50px;
+
         }
-        .styles div:hover, .backgrounds div:hover, .gender div:hover{
+        .styles img{
+            width:100%;
+            height: 80%;
+            object-fit: cover; /* Ensure the image covers the container */
+            aspect-ratio: 1.2; /* Make the image a square */
+            border-radius: 10px;
+        }
+        .backgrounds img{
+            width:100%;
+            height: 80%;
+            object-fit: cover; /* Ensure the image covers the container */
+            aspect-ratio: 1.2; /* Make the image a square */
+            border-radius: 10px;
+        }
+
+
+     
+        /* .styles div:hover, .backgrounds div:hover, .gender div:hover{
             background-color: #ff7272;
-        }
+        } */
         .selected {
-            color: white;
-            border-color: #212121;
-            background-color: #800020;
+            color: #212121;
+            /* border-color: #212121; */
+            background-color: #c9c9c9;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -75,8 +111,8 @@
     <div class="title-bar cursive">
         Fit it
     </div>
-    <div class="content" id="lending_content">
-        <!-- Content goes here -->
+    <!-- <div class="content" id="lending_content">
+       
          <center>
             <img src="static/introduce.jpg" width="90%" >
              <br><br>
@@ -88,14 +124,14 @@
                 <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
             </a>
         </center>
-    </div>
+    </div> -->
     <div class="content" id="gender_select">
         <main>
             <section id="sel_gender">
                 <h2>Choose Your Gender</h2>
                 <div class="gender">
-                    <div class="selected">Female</div>
-                    <div>Male</div>
+                    <div id="gender_0" class="selected">Female</div>
+                    <div id="gender_1">Male</div>
                 </div>
             </section>
         </main>
@@ -105,25 +141,44 @@
             <section id="clothing-style">
                 <h2>Choose Your Style</h2>
                 <div class="styles">
-                    <div class="selected">Oversized Blazer and Crop Top Combo</div>
-                    <div>Pleated Skirt and Sneakers</div>
-                    <div>Wide Pants and Graphic T-Shirts</div>
+                    <div id="style_0" class="selected"><img src="static/dress/female/Oversized Blazer and Crop Top Combo.png" alt="Female Image" />Oversized Blazer and Crop Top Combo</div>
+                    <div id="style_1"><img src="static/dress/female/Pleated Skirt and Sneakers.png" alt="Female Image" />Pleated Skirt and Sneakers</div>
+                    <div id="style_2"><img src="static/dress/female/WhiteBlouseDenimShorts.png" alt="Female Image" />White Blouse + Denim Shorts</div>
+                    <div id="style_3"><img src="static/dress/female/Floral Print Dress + Sandals.png" alt="Female Image" />Floral Print Dress + Sandals</div>
+                    <div id="style_4"><img src="static/dress/female/Graphic T-Shirt + Mini Skirt.png" alt="Female Image" />Graphic T-Shirt + Mini Skirt</div>
+                    <div id="style_5"><img src="static/dress/female/Slip Dress + Denim Jacket.png" alt="Female Image" />Slip Dress + Denim Jacket</div>
+                    <div id="style_6"><img src="static/dress/female/Sleeveless Knit Top + Wide-Leg Pants.png" alt="Female Image" />Sleeveless Knit Top + Wide-Leg Pants</div>
+                    <div id="style_7"><img src="static/dress/female/Blouse + High-Waisted Shorts.png" alt="Female Image" />Blouse + High-Waisted Shorts</div>
+
+                    <div id="style_8"><img src="static/dress/male/Linen Shirt + Chino Shorts.png" alt="Male Image" />Linen Shirt + Chino Shorts</div>
+                    <div id="style_9"><img src="static/dress/male/Polo Shirt + Slim-Fit Chino Pants.png" alt="Male Image" />Polo Shirt + Slim-Fit Chino Pants</div>
+                    <div id="style_10"><img src="static/dress/male/Short-Sleeve Button-Down Shirt + Denim Shorts.png" alt="Male Image" />Short-Sleeve Button-Down Shirt + Denim Shorts</div>
+                    <div id="style_11"><img src="static/dress/male/White T-Shirt + Denim Shorts.png" alt="Male Image" />White T-Shirt + Denim Shorts</div>
                 </div>
             </section>
             <section id="background">
                 <h2>Choose Your Background</h2>
                 <div class="backgrounds">
-                    <div class="selected">High place mountain, korea seoul</div>
-                    <div>Emerald beach, jeju island</div>
-                    <div>Night marketplace, korea seoul</div>
+                    <div id="bg_0" class="selected"><img src="static/bg/Luxurious mansion staircase.png" alt="Background Image" />Luxurious mansion staircase</div>
+                    <div id="bg_1"><img src="static/bg/Modern urban rooftop.png" alt="Background Image" />Modern urban rooftop</div>
+                    <div id="bg_2"><img src="static/bg/Tropical jungle.png" alt="Background Image" />Tropical jungle</div>
+                    <div id="bg_3"><img src="static/bg/Industrial warehouse.png" alt="Background Image" />Industrial warehouse</div>
+                    <div id="bg_4"><img src="static/bg/Minimalist white studio.png" alt="Background Image" />Minimalist white studio</div>
+                    <div id="bg_5"><img src="static/bg/Beachside resort.png" alt="Background Image" />Beachside resort</div>
+                    <div id="bg_6"><img src="static/bg/Classic European street.png" alt="Background Image" />Classic European street</div>
+                    <div id="bg_7"><img src="static/bg/Picturesque vineyard.png" alt="Background Image" />Picturesque vineyard</div>
+                    <div id="bg_8"><img src="static/bg/Autumn forest.png" alt="Background Image" />Autumn forest</div>
+                    <div id="bg_9"><img src="static/bg/Chic modern living room.png" alt="Background Image" />Chic modern living room</div>
+                    <div id="bg_10"><img src="static/bg/Serene Japanese garden.png" alt="Background Image" />Serene Japanese garden</div>
                 </div>
             </section>
         </main>
     </div>
     <div class="content" id="upload">
-        <input type="file" id="fileInput" />
+        <input style="display: none;" type="file" id="fileInput" />
         <br><br>
-        <button class="flat-button" id="uploadButton">업로드</button>
+        <button class="flat-button" id="uploadButton">Upload</button>
+        <div id="imagesContainer"></div>
     </div>
     
 
@@ -133,7 +188,7 @@
             const genderOptions = document.querySelectorAll('.gender div');
             const styleOptions = document.querySelectorAll('.styles div');
             const backgroundOptions = document.querySelectorAll('.backgrounds div');
-
+            
             genderOptions.forEach(option => {
                 option.addEventListener('click', () => {
                     genderOptions.forEach(opt => opt.classList.remove('selected'));
@@ -157,31 +212,56 @@
         });
         // 파일 업로드
         document.getElementById('uploadButton').addEventListener('click', function() {
+            const selectedOptions = document.querySelectorAll('.selected');
+            const selDatas = {
+                "gender" : selectedOptions[0].id.replace("gender_",''),
+                "style"  : selectedOptions[1].id.replace("style_",''),
+                "bg"     : selectedOptions[2].id.replace("bg_",''),
+                }
+            console.log(selDatas);
             const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
+
+             // 파일 선택 대화상자 열기
+             fileInput.click();
             
-            if (!file) {
-                alert('파일을 선택해주세요.');
-                return;
+            // 파일이 선택되면 업로드 시작
+            fileInput.onchange = function() {
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    alert('파일을 선택해주세요.');
+                    return;
+                }
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('datas', JSON.stringify(selDatas));
+                
+                fetch('http://127.0.0.1:5000/upload', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('성공:', data);
+                    displayImages(data.images);
+                })
+                .catch((error) => {
+                    console.error('오류:', error);
+                });
             }
-            
-            const formData = new FormData();
-            formData.append('file', file);
-            
-            fetch('업로드_서버_URL', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('성공:', data);
-                alert('파일 업로드 성공!');
-            })
-            .catch((error) => {
-                console.error('오류:', error);
-                alert('파일 업로드 실패.');
-            });
         });
+        function displayImages(images) {
+            const imagesContainer = document.getElementById('imagesContainer');
+            imagesContainer.innerHTML = '';
+            images.forEach(imgStr => {
+                const img = new Image();
+                img.src = `data:image/png;base64,${imgStr}`;
+                img.style.width = '95%';
+                imagesContainer.appendChild(img);
+            });
+        }
+
     </script>
 </body>
 </html>
