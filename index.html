@@ -237,7 +237,7 @@
                 formData.append('file', file);
                 formData.append('datas', JSON.stringify(selDatas));
                 
-                fetch('http://127.0.0.1:5000/upload', {
+                fetch('https://cbe5-125-180-156-34.ngrok-free.app/upload', {
                     method: 'POST',
                     body: formData,
                 })
