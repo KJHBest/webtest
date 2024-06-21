@@ -283,7 +283,7 @@
                 formData.append('file', file);
                 formData.append('datas', JSON.stringify(selDatas));
                 
-                fetch('https://cbe5-125-180-156-34.ngrok-free.app/upload', {
+                fetch('https://e00f-125-180-156-34.ngrok-free.app/upload', {
                     method: 'POST',
                     body: formData,
                 })
@@ -295,6 +295,7 @@
                     var content = document.getElementById('content');
                     loadingScreen.style.display = 'none';
                     content.style.display = 'block';
+                    fileInput.value='';
                 })
                 .catch((error) => {
                     console.error('오류:', error);
@@ -302,6 +303,7 @@
                     var content = document.getElementById('content');
                     loadingScreen.style.display = 'none';
                     content.style.display = 'block';
+                    fileInput.value='';
                 });
             }
         });
