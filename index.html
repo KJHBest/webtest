@@ -30,17 +30,34 @@
             padding: 0px 20px;
         }
         .flat-button {
-            background-color: #800020; 
-            color: white;
+            background: linear-gradient(135deg, #a445b2, #d41872, #06bcff);
             border: none;
+            color: white;
             padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 24px;
             border-radius: 30px;
-            width:95%;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             cursor: pointer;
+            width:100%;
+        }
+        .flat-button-sub {
+            background:  #06bcff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width:100%;
         }
         main {
             padding: 1em;
@@ -133,7 +150,9 @@
             height: 120px;
             animation: spin 2s linear infinite;
         }
-
+        #againButton{
+            display: none;
+        }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -199,17 +218,21 @@
                         <div id="bg_7"><img src="static/bg/Picturesque vineyard.png" alt="Background Image" />Picturesque vineyard</div>
                         <div id="bg_8"><img src="static/bg/Autumn forest.png" alt="Background Image" />Autumn forest</div>
                         <div id="bg_9"><img src="static/bg/Chic modern living room.png" alt="Background Image" />Chic modern living room</div>
-                        <div id="bg_10"><img src="static/bg/Serene Japanese garden.png" alt="Background Image" />Serene Japanese garden</div>
+                        
                     </div>
                 </section>
             </main>
         </div>
         <div class="content" id="upload">
-            <input style="display: none;" type="file" id="fileInput" />
-            <br><br>
-            <button class="flat-button" id="uploadButton">Upload</button>
-            <br><br><br><br><br>
-            <div id="imagesContainer"></div>
+            <main>
+                <input style="display: none;" type="file" id="fileInput" />
+                <br><br>
+                <button class="flat-button cursive" id="uploadButton">Fit it</button>
+                <br><br>
+                <button class="flat-button-sub" id="againButton">Again same picture</button>
+                <br><br><br><br><br>
+                <div id="imagesContainer"></div>
+            </main>
         </div>
     
     </div>
@@ -278,25 +301,17 @@
                 });
             });
         });
-        // 파일 업로드
-        document.getElementById('uploadButton').addEventListener('click', function() {
+        //  다시 업로드(같은 사진)
+        document.getElementById('againButton').addEventListener('click', function() {
             const selectedOptions = document.querySelectorAll('.selected');
-            console.log(selectedOptions)
             let selStyle = selectedOptions[0].id == "gender_0"?1:2
             const selDatas = {
                 "gender" : selectedOptions[0].id.replace("gender_",''),
                 "style"  : selectedOptions[selStyle].id.replace("style_",''),
                 "bg"     : selectedOptions[3].id.replace("bg_",''),
                 }
-            console.log(selDatas);
             const fileInput = document.getElementById('fileInput');
-
-             // 파일 선택 대화상자 열기
-             fileInput.click();
-            
-            // 파일이 선택되면 업로드 시작
-            fileInput.onchange = function() {
-                const file = fileInput.files[0];
+            const file = fileInput.files[0];
                 
                 if (!file) {
                     alert('파일을 선택해주세요.');
@@ -339,6 +354,68 @@
                     content.style.display = 'block';
                     fileInput.value='';
                 });
+
+        });
+        // 파일 업로드
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            const selectedOptions = document.querySelectorAll('.selected');
+            let selStyle = selectedOptions[0].id == "gender_0"?1:2
+            const selDatas = {
+                "gender" : selectedOptions[0].id.replace("gender_",''),
+                "style"  : selectedOptions[selStyle].id.replace("style_",''),
+                "bg"     : selectedOptions[3].id.replace("bg_",''),
+                }
+            const fileInput = document.getElementById('fileInput');
+            fileInput.value='';
+            // 파일 선택 대화상자 열기
+            fileInput.click();
+            
+            // 파일이 선택되면 업로드 시작
+            fileInput.onchange = function() {
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    alert('파일을 선택해주세요.');
+                    return;
+                }
+                // 로딩 바 보이기
+                var loadingScreen = document.getElementById('loading');
+                var content = document.getElementById('content');
+                loadingScreen.style.display = 'flex';
+                content.style.display = 'flex';
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('datas', JSON.stringify(selDatas));
+                
+                fetch('https://e00f-125-180-156-34.ngrok-free.app/upload', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('성공:', data);
+                    displayImages(data.images);
+                    var loadingScreen = document.getElementById('loading');
+                    var content = document.getElementById('content');
+                    loadingScreen.style.display = 'none';
+                    content.style.display = 'block';
+                    const againButton = document.getElementById('againButton');
+                    againButton.style.display = "block"
+                    window.scroll({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                        });
+
+                })
+                .catch((error) => {
+                    console.error('오류:', error);
+                    var loadingScreen = document.getElementById('loading');
+                    var content = document.getElementById('content');
+                    loadingScreen.style.display = 'none';
+                    content.style.display = 'block';
+                    
+                });
             }
         });
         function displayImages(images) {
@@ -347,7 +424,8 @@
             images.forEach(imgStr => {
                 const img = new Image();
                 img.src = `data:image/png;base64,${imgStr}`;
-                img.style.width = '95%';
+                img.style.width = '45%';
+                img.style.padding ='0 5px'
                 imagesContainer.appendChild(img);
             });
         }
