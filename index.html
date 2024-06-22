@@ -56,13 +56,13 @@
             border-radius: 50px;
         }
 
-        .styles, .backgrounds {
+        .styles, .styles_M, .backgrounds {
             display: flex;
             gap: 1em;
             flex-wrap: wrap;
           
         }
-        .styles div, .backgrounds div{
+        .styles div, .styles_M div, .backgrounds div{
             flex: 1 1 calc(50% - 10px); /* Two items per row with some space between */
             box-sizing: border-box;
             padding: 10px;
@@ -79,7 +79,7 @@
             border-radius: 50px;
 
         }
-        .styles img{
+        .styles img, .styles_M img{
             width:100%;
             height: 80%;
             object-fit: cover; /* Ensure the image covers the container */
@@ -92,6 +92,9 @@
             object-fit: cover; /* Ensure the image covers the container */
             aspect-ratio: 1.2; /* Make the image a square */
             border-radius: 10px;
+        }
+        #clothing-style-man {
+            display: none;
         }
 
 
@@ -145,24 +148,11 @@
         <div class="title-bar cursive">
             Fit it
         </div>
-        <!-- <div class="content" id="lending_content">
-        
-            <center>
-                <img src="static/introduce.jpg" width="90%" >
-                <br><br>
-                이제 최고의 순간을 만드세요! 
-                <br><br>
-                <button class="flat-button">준비중...</button>
-                <br><br>
-                <a href="https://www.buymeacoffee.com/kjhbest" target="_blank">
-                    <img src="static/bmc_qr.png" width="20%" alt="Buy Me a Coffee">
-                </a>
-            </center>
-        </div> -->
+       
         <div class="content" id="gender_select">
             <main>
-                <section id="sel_gender">
-                    <h2>Choose Your Gender</h2>
+                <section id="sel_gender" onclick="onChangeGender()">
+                    <h2> Gender</h2>
                     <div class="gender">
                         <div id="gender_0" class="selected">Female</div>
                         <div id="gender_1">Male</div>
@@ -173,7 +163,7 @@
         <div class="content" id="condition_select">
             <main>
                 <section id="clothing-style">
-                    <h2>Choose Your Style</h2>
+                    <h2> Style</h2>
                     <div class="styles">
                         <div id="style_0" class="selected"><img src="static/dress/female/Oversized Blazer and Crop Top Combo.png" alt="Female Image" />Oversized Blazer and Crop Top Combo</div>
                         <div id="style_1"><img src="static/dress/female/Pleated Skirt and Sneakers.png" alt="Female Image" />Pleated Skirt and Sneakers</div>
@@ -184,14 +174,20 @@
                         <div id="style_6"><img src="static/dress/female/Sleeveless Knit Top + Wide-Leg Pants.png" alt="Female Image" />Sleeveless Knit Top + Wide-Leg Pants</div>
                         <div id="style_7"><img src="static/dress/female/Blouse + High-Waisted Shorts.png" alt="Female Image" />Blouse + High-Waisted Shorts</div>
 
-                        <div id="style_8"><img src="static/dress/male/Linen Shirt + Chino Shorts.png" alt="Male Image" />Linen Shirt + Chino Shorts</div>
-                        <div id="style_9"><img src="static/dress/male/Polo Shirt + Slim-Fit Chino Pants.png" alt="Male Image" />Polo Shirt + Slim-Fit Chino Pants</div>
-                        <div id="style_10"><img src="static/dress/male/Short-Sleeve Button-Down Shirt + Denim Shorts.png" alt="Male Image" />Short-Sleeve Button-Down Shirt + Denim Shorts</div>
-                        <div id="style_11"><img src="static/dress/male/White T-Shirt + Denim Shorts.png" alt="Male Image" />White T-Shirt + Denim Shorts</div>
+                        
+                    </div>
+                </section>
+                <section id="clothing-style-man">
+                    <h2> Style</h2>
+                    <div class="styles_M">
+                        <div id="style_0" class="selected"><img src="static/dress/male/Linen Shirt + Chino Shorts.png" alt="Male Image" />Linen Shirt + Chino Shorts</div>
+                        <div id="style_1"><img src="static/dress/male/Polo Shirt + Slim-Fit Chino Pants.png" alt="Male Image" />Polo Shirt + Slim-Fit Chino Pants</div>
+                        <div id="style_2"><img src="static/dress/male/Short-Sleeve Button-Down Shirt + Denim Shorts.png" alt="Male Image" />Short-Sleeve Button-Down Shirt + Denim Shorts</div>
+                        <div id="style_3"><img src="static/dress/male/White T-Shirt + Denim Shorts.png" alt="Male Image" />White T-Shirt + Denim Shorts</div>
                     </div>
                 </section>
                 <section id="background">
-                    <h2>Choose Your Background</h2>
+                    <h2> Background</h2>
                     <div class="backgrounds">
                         <div id="bg_0" class="selected"><img src="static/bg/Luxurious mansion staircase.png" alt="Background Image" />Luxurious mansion staircase</div>
                         <div id="bg_1"><img src="static/bg/Modern urban rooftop.png" alt="Background Image" />Modern urban rooftop</div>
@@ -212,6 +208,7 @@
             <input style="display: none;" type="file" id="fileInput" />
             <br><br>
             <button class="flat-button" id="uploadButton">Upload</button>
+            <br><br><br><br><br>
             <div id="imagesContainer"></div>
         </div>
     
@@ -225,9 +222,32 @@
             loadingScreen.style.display = 'none';
             content.style.display = 'block';
         });
+        function onChangeGender(){
+            const selectedOptions = document.querySelectorAll('.selected');
+            var styles = document.querySelector("#clothing-style");
+            var stylesM = document.querySelector("#clothing-style-man");
+            if(selectedOptions[0].id == "gender_0"){
+                console.log("0")
+                styles.style.display = "block"
+                stylesM.style.display = "none"
+            }else{
+                console.log("2")
+                styles.style.display = "none"
+                stylesM.style.display = "block"
+            }
+            const styleOptions = document.querySelectorAll('.styles div');
+            styleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    styleOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+        }
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("RunSelect")
             const genderOptions = document.querySelectorAll('.gender div');
             const styleOptions = document.querySelectorAll('.styles div');
+            const styleMOptions = document.querySelectorAll('.styles_M div');
             const backgroundOptions = document.querySelectorAll('.backgrounds div');
             
             genderOptions.forEach(option => {
@@ -244,6 +264,13 @@
                 });
             });
 
+            styleMOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    styleMOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
             backgroundOptions.forEach(option => {
                 option.addEventListener('click', () => {
                     backgroundOptions.forEach(opt => opt.classList.remove('selected'));
@@ -254,10 +281,12 @@
         // 파일 업로드
         document.getElementById('uploadButton').addEventListener('click', function() {
             const selectedOptions = document.querySelectorAll('.selected');
+            console.log(selectedOptions)
+            let selStyle = selectedOptions[0].id == "gender_0"?1:2
             const selDatas = {
                 "gender" : selectedOptions[0].id.replace("gender_",''),
-                "style"  : selectedOptions[1].id.replace("style_",''),
-                "bg"     : selectedOptions[2].id.replace("bg_",''),
+                "style"  : selectedOptions[selStyle].id.replace("style_",''),
+                "bg"     : selectedOptions[3].id.replace("bg_",''),
                 }
             console.log(selDatas);
             const fileInput = document.getElementById('fileInput');
@@ -296,6 +325,11 @@
                     loadingScreen.style.display = 'none';
                     content.style.display = 'block';
                     fileInput.value='';
+                    window.scroll({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                        });
+
                 })
                 .catch((error) => {
                     console.error('오류:', error);
