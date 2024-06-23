@@ -282,6 +282,7 @@
     
     </div>
     <script type="module">
+        let uploadUrl = 'https://73ee-125-180-156-34.ngrok-free.app'
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
@@ -398,7 +399,7 @@
                 formData.append('file', file);
                 formData.append('datas', JSON.stringify(selDatas));
                 
-                fetch('https://e00f-125-180-156-34.ngrok-free.app/upload', {
+                fetch(uploadUrl+'/upload', {
                     method: 'POST',
                     body: formData,
                 })
@@ -467,7 +468,7 @@
                 formData.append('file', file);
                 formData.append('datas', JSON.stringify(selDatas));
                 
-                fetch('https://73ee-125-180-156-34.ngrok-free.app /upload', {
+                fetch(uploadUrl+'/upload', {
                     method: 'POST',
                     body: formData,
                 })
