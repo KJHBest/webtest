@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitit</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .cursive {
             font-family: 'Pacifico', cursive;
@@ -58,6 +59,16 @@
             transition: all 0.3s ease;
             cursor: pointer;
             width:100%;
+        }
+        .subControlButton{
+            background:  #ffffff;
+            border: 1px solid;
+            border-color: #646464;
+            color: #646464;
+            font-size: 24px;
+            cursor: pointer;
+            width: 45%;
+            border-radius: 10px;
         }
         main {
             padding: 1em;
@@ -157,6 +168,27 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .resultImage{
+           width: 100%;
+           border-radius: 10px;
+        }
+        .button-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .resultImageContainer{
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .resultImageSet{
+            width: 45%;
+            text-align: center;
+            
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -192,8 +224,6 @@
                         <div id="style_5"><img src="static/dress/female/Slip Dress + Denim Jacket.png" alt="Female Image" />Slip Dress + Denim Jacket</div>
                         <div id="style_6"><img src="static/dress/female/Sleeveless Knit Top + Wide-Leg Pants.png" alt="Female Image" />Sleeveless Knit Top + Wide-Leg Pants</div>
                         <div id="style_7"><img src="static/dress/female/Blouse + High-Waisted Shorts.png" alt="Female Image" />Blouse + High-Waisted Shorts</div>
-
-                        
                     </div>
                 </section>
                 <section id="clothing-style-man">
@@ -218,26 +248,62 @@
                         <div id="bg_7"><img src="static/bg/Picturesque vineyard.png" alt="Background Image" />Picturesque vineyard</div>
                         <div id="bg_8"><img src="static/bg/Autumn forest.png" alt="Background Image" />Autumn forest</div>
                         <div id="bg_9"><img src="static/bg/Chic modern living room.png" alt="Background Image" />Chic modern living room</div>
-                        
                     </div>
                 </section>
             </main>
         </div>
         <div class="content" id="upload">
-            <main>
-                <input style="display: none;" type="file" id="fileInput" />
-                <br><br>
-                <button class="flat-button cursive" id="uploadButton">Fit it</button>
-                <br><br>
-                <button class="flat-button-sub" id="againButton">Again same picture</button>
-                <br><br><br><br><br>
-                <div id="imagesContainer"></div>
-            </main>
+            <input style="display: none;" type="file" id="fileInput" />
+            <br><br>
+            <button class="flat-button cursive" id="uploadButton">Fit it</button>
+            <br><br>
+            <button class="flat-button-sub" id="againButton">Again same picture</button>
+            <br><br><br>
+            
+            <div id="imagesContainer">
+                <div class="resultImageContainer">
+                    <div class="resultImageSet">
+                        <img id="resultImage1" class="resultImage" src="static/result_2024-06-22 22-08-50_B.jpg" />
+                        <div class="button-container">
+                            <button class="subControlButton" id="likeA"><i class="fas fa-thumbs-up"></i></button>
+                            <button class="subControlButton" id="downloadA"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
+                    <div class="resultImageSet">
+                        <img id="resultImage2" class="resultImage" src="static/result_2024-06-22 22-08-50_B.jpg"/>
+                        <div class="button-container">
+                            <button class="subControlButton" id="likeB"><i class="fas fa-thumbs-up"></i></button>
+                            <button class="subControlButton" id="downloadB"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     
     </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCwJodY83c12cRzGAs4QXr4P7dmphHwRTU",
+          authDomain: "fit-it-analytics.firebaseapp.com",
+          projectId: "fit-it-analytics",
+          storageBucket: "fit-it-analytics.appspot.com",
+          messagingSenderId: "403285719660",
+          appId: "1:403285719660:web:23105be5ae490067847649",
+          measurementId: "G-9Z1M2D08YJ"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
 
-    <script>
         // 페이지가 완전히 로드되면 로딩 스크린을 숨기고 콘텐츠를 보여줍니다.
         window.addEventListener('load', function() {
             var loadingScreen = document.getElementById('loading');
@@ -310,6 +376,11 @@
                 "style"  : selectedOptions[selStyle].id.replace("style_",''),
                 "bg"     : selectedOptions[3].id.replace("bg_",''),
                 }
+            logEvent(analytics, 'select_content',{
+                gender:selectedOptions[0].id.replace("gender_",''),
+                style:selectedOptions[selStyle].id.replace("style_",''),
+                bg:selectedOptions[3].id.replace("bg_",'')
+            });
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
                 
@@ -364,6 +435,11 @@
                 "style"  : selectedOptions[selStyle].id.replace("style_",''),
                 "bg"     : selectedOptions[3].id.replace("bg_",''),
                 }
+            logEvent(analytics, 'select_content',{
+                gender:selectedOptions[0].id.replace("gender_",''),
+                style:selectedOptions[selStyle].id.replace("style_",''),
+                bg:selectedOptions[3].id.replace("bg_",'')
+            });
             const fileInput = document.getElementById('fileInput');
             fileInput.value='';
             // 파일 선택 대화상자 열기
@@ -382,6 +458,10 @@
                 var content = document.getElementById('content');
                 loadingScreen.style.display = 'flex';
                 content.style.display = 'flex';
+                
+                var imagecontainer = document.querySelector(".resultImageContainer");
+                imagecontainer.style.display="flex";
+                
 
                 const formData = new FormData();
                 formData.append('file', file);
@@ -419,16 +499,71 @@
         });
         function displayImages(images) {
             const imagesContainer = document.getElementById('imagesContainer');
-            imagesContainer.innerHTML = '';
+            
+            var i=1;
             images.forEach(imgStr => {
-                const img = new Image();
+                var srcid = 'resultImage'+i
+                const img =  document.getElementById(srcid);
+                console.log(srcid,img);
                 img.src = `data:image/png;base64,${imgStr}`;
-                img.style.width = '45%';
-                img.style.padding ='0 5px'
-                imagesContainer.appendChild(img);
+                
+                i++;
             });
         }
+        document.getElementById('likeA').addEventListener('click', function() {
+            var likebtn = document.getElementById('likeA');
+            likebtn.style.color= "#06bcff";
+            logEvent(analytics, 'likeA_button_click');
+        });
+        document.getElementById('likeB').addEventListener('click', function() {
+            var likebtn = document.getElementById('likeB');
+            likebtn.style.color= "#06bcff";
+            logEvent(analytics, 'likeB_button_click');
+        });
+        document.getElementById('downloadA').addEventListener('click', function() {
+            var img = document.getElementById('resultImage1');
+            var imageURL = img.src;
+            logEvent(analytics, 'downloadA_button_click');
+            // 링크 생성
+            var link = document.createElement('a');
+            link.href = imageURL;
+            var timestamp = Date.now();
 
+            // 파일 이름 생성 (예: image_1624032131000.jpg)
+            var fileName = `image_${timestamp}.jpg`;
+            link.download = fileName;
+
+            // 링크 클릭 시뮬레이션
+            document.body.appendChild(link);
+            link.click();
+
+            // 링크 삭제
+            document.body.removeChild(link);
+        
+        });
+        document.getElementById('downloadB').addEventListener('click', function() {
+            var img = document.getElementById('resultImage2');
+            var imageURL = img.src;
+            logEvent(analytics, 'downloadB_button_click');
+            // 링크 생성
+            var link = document.createElement('a');
+            link.href = imageURL;
+            var timestamp = Date.now();
+
+            // 파일 이름 생성 (예: image_1624032131000.jpg)
+            var fileName = `image_${timestamp}.jpg`;
+            link.download = fileName;
+
+            // 링크 클릭 시뮬레이션
+            document.body.appendChild(link);
+            link.click();
+
+            // 링크 삭제
+            document.body.removeChild(link);
+        
+        });
+        
     </script>
+    
 </body>
 </html>
