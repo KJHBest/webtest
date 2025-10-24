@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>크로니클 오브 애쉬 - Chronicle of Ash</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 배경 이미지 -->
+        <div id="background"></div>
+
+        <!-- 캐릭터 스프라이트 -->
+        <div id="character-container">
+            <img id="character-sprite" src="" alt="" style="display: none;">
+        </div>
+
+        <!-- 텍스트 박스 -->
+        <div id="dialogue-box">
+            <div id="character-name"></div>
+            <div id="dialogue-text"></div>
+            <div id="continue-indicator">▼</div>
+        </div>
+
+        <!-- 선택지 컨테이너 -->
+        <div id="choices-container"></div>
+
+        <!-- UI 메뉴 -->
+        <div id="menu-container">
+            <button id="menu-btn" class="menu-button">메뉴</button>
+            <div id="menu-panel" style="display: none;">
+                <button class="menu-option" id="save-btn">저장</button>
+                <button class="menu-option" id="load-btn">불러오기</button>
+                <button class="menu-option" id="auto-btn">자동</button>
+                <button class="menu-option" id="skip-btn">스킵</button>
+                <button class="menu-option" id="log-btn">로그</button>
+                <button class="menu-option" id="close-menu-btn">닫기</button>
+            </div>
+        </div>
+
+        <!-- 타이틀 화면 -->
+        <div id="title-screen">
+            <div class="title-content">
+                <h1 class="game-title">크로니클 오브 애쉬</h1>
+                <p class="game-subtitle">Chronicle of Ash</p>
+                <div class="title-buttons">
+                    <button class="title-button" id="start-btn">시작하기</button>
+                    <button class="title-button" id="continue-btn">이어하기</button>
+                    <button class="title-button" id="gallery-btn">갤러리</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 세이브/로드 화면 -->
+        <div id="save-load-screen" style="display: none;">
+            <div class="save-load-content">
+                <h2 id="save-load-title">저장하기</h2>
+                <div id="save-slots"></div>
+                <button class="close-button" id="close-save-load">닫기</button>
+            </div>
+        </div>
+
+        <!-- 로그 화면 -->
+        <div id="log-screen" style="display: none;">
+            <div class="log-content">
+                <h2>대화 로그</h2>
+                <div id="log-container"></div>
+                <button class="close-button" id="close-log">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/story.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+</html>
